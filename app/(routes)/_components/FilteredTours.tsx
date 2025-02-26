@@ -1,138 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  tours,
-  getFilteredTours,
-  themes,
-  activities,
-  vehicles,
-  features,
-  Tour,
-} from "../../../constans/index";
+import { Tour } from "../../../constans/index";
 import { Card, CardContent } from "@/components/ui/card";
 import { FaHeart, FaStar } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-
-interface FilterState {
-  searchLocation: string;
-  selectedTheme: string;
-  selectedActivities: string[];
-  priceRange: number;
-  startTimeRange: number;
-  groupSizeRange: number;
-  selectedVehicle: string;
-  selectedFeatures: string[];
-}
+import Image from "next/image";
 
 const FilteredTours = ({ filteredData }: { filteredData: Tour[] }) => {
-  const [filterState, setFilterState] = useState<FilterState>({
-    searchLocation: "",
-    selectedTheme: "",
-    selectedActivities: [],
-    priceRange: 25000,
-    startTimeRange: 24,
-    groupSizeRange: 100,
-    selectedVehicle: "",
-    selectedFeatures: [],
-  });
-
-  const [filteredTours, setFilteredTours] = useState(tours);
-  const [showFilters, setShowFilters] = useState(false);
-
   useEffect(() => {
-    setFilteredTours(filteredData);
+    // Update filtered tours based on props
   }, [filteredData]);
-
-  // Filtre değiştiğinde turları güncelle
-  useEffect(() => {
-    const updatedTours = getFilteredTours(
-      filterState.searchLocation,
-      filterState.selectedTheme,
-      filterState.selectedActivities,
-      filterState.priceRange,
-      filterState.startTimeRange,
-      filterState.groupSizeRange,
-      filterState.selectedVehicle,
-      filterState.selectedFeatures
-    );
-
-    // Bazı turlara indirim uygula
-    const toursWithDiscount = updatedTours.map((tour) => ({
-      ...tour,
-      discount: Math.random() > 0.5 ? 30 : undefined,
-    }));
-
-    setFilteredTours(toursWithDiscount);
-  }, [filterState]);
-
-  // Tema seçimi
-  const handleThemeSelect = (themeId: string) => {
-    setFilterState((prev) => ({
-      ...prev,
-      selectedTheme: prev.selectedTheme === themeId ? "" : themeId,
-    }));
-  };
-
-  // Aktivite seçimi
-  const handleActivitySelect = (activityId: string) => {
-    setFilterState((prev) => {
-      if (prev.selectedActivities.includes(activityId)) {
-        return {
-          ...prev,
-          selectedActivities: prev.selectedActivities.filter(
-            (id) => id !== activityId
-          ),
-        };
-      } else {
-        return {
-          ...prev,
-          selectedActivities: [...prev.selectedActivities, activityId],
-        };
-      }
-    });
-  };
-
-  // Araç seçimi
-  const handleVehicleSelect = (vehicleId: string) => {
-    setFilterState((prev) => ({
-      ...prev,
-      selectedVehicle: prev.selectedVehicle === vehicleId ? "" : vehicleId,
-    }));
-  };
-
-  // Özellik seçimi
-  const handleFeatureSelect = (featureId: string) => {
-    setFilterState((prev) => {
-      if (prev.selectedFeatures.includes(featureId)) {
-        return {
-          ...prev,
-          selectedFeatures: prev.selectedFeatures.filter(
-            (id) => id !== featureId
-          ),
-        };
-      } else {
-        return {
-          ...prev,
-          selectedFeatures: [...prev.selectedFeatures, featureId],
-        };
-      }
-    });
-  };
-
-  // Filtre sıfırlama
-  const resetFilters = () => {
-    setFilterState({
-      searchLocation: "",
-      selectedTheme: "",
-      selectedActivities: [],
-      priceRange: 25000,
-      startTimeRange: 24,
-      groupSizeRange: 100,
-      selectedVehicle: "",
-      selectedFeatures: [],
-    });
-  };
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
@@ -154,7 +32,7 @@ const FilteredTours = ({ filteredData }: { filteredData: Tour[] }) => {
   );
 };
 
-// Tur Kartı Komponenti
+// Tour Card Component
 interface TourCardProps {
   tour: Tour;
 }
@@ -165,9 +43,11 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
   return (
     <Card className="overflow-hidden rounded-xl shadow-md transition-transform hover:shadow-lg hover:scale-[1.02] relative">
       <div className="relative">
-        <img
+        <Image
           src={tour.image || "/api/placeholder/400/250"}
           alt={tour.name}
+          width={400}
+          height={250}
           className="w-full h-48 object-cover"
         />
 
