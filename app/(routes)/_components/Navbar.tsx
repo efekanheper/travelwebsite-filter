@@ -3,17 +3,7 @@
 import React, { useState, useEffect } from "react"; // useEffect ekledik
 import Image from "next/image"; // Import the Image component
 
-import {
-  FaBars,
-  FaHeart,
-  FaShoppingCart,
-  FaUser,
-  FaSearch,
-  FaTimes,
-  FaApple,
-} from "react-icons/fa";
-
-import { Slider } from "@/components/ui/slider";
+import { FaHeart, FaShoppingCart, FaTimes } from "react-icons/fa";
 
 import {
   tours,
@@ -172,19 +162,6 @@ const Navbar = ({
       ...prev,
       features: { ...prev.features, [feature]: !prev.features[feature] },
     }));
-  };
-
-  // Slider handlers
-  const handlePriceChange = (value: number[]) => {
-    setFilters((prev) => ({ ...prev, price: value[0] }));
-  };
-
-  const handleStartTimeChange = (value: number[]) => {
-    setFilters((prev) => ({ ...prev, startTime: value[0] }));
-  };
-
-  const handleGroupSizeChange = (value: number[]) => {
-    setFilters((prev) => ({ ...prev, groupSize: value[0] }));
   };
 
   // Activity multiple selection handler
