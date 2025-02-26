@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react"; // useEffect ekledik
-import Image from "next/image"; // Import the Image component
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 import { FaHeart, FaShoppingCart, FaTimes } from "react-icons/fa";
 
@@ -34,8 +34,6 @@ const Navbar = ({
 }: {
   setFilteredData: (data: Tour[]) => void;
 }) => {
-  // setFilteredData prop'unu ekledik
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filters, setFilters] = useState<FilterState>({
@@ -53,11 +51,9 @@ const Navbar = ({
     },
   });
 
-  // Initialize tours with no discounts initially
   const [discountedTours, setDiscountedTours] = useState<Tour[]>(tours);
 
   useEffect(() => {
-    // Generate random discounts once on mount
     const toursWithDiscounts = tours.map((tour) => ({
       ...tour,
       discount: Math.random() > 0.7 ? 30 : undefined,
@@ -65,12 +61,9 @@ const Navbar = ({
     setDiscountedTours(toursWithDiscounts);
   }, []);
 
-  // Filtreleme işlemini yapacak fonksiyon
-
   const applyFilters = () => {
     let results = [...discountedTours];
 
-    // Lokasyon filtreleme
     if (filters.searchLocation.trim()) {
       results = results.filter((tour) =>
         tour.location
@@ -79,14 +72,12 @@ const Navbar = ({
       );
     }
 
-    // Tema filtreleme
     if (filters.selectedTheme) {
       results = results.filter((tour) =>
         tour.themes.includes(filters.selectedTheme)
       );
     }
 
-    // Aktivite filtreleme
     if (filters.selectedActivities.length > 0) {
       results = results.filter((tour) =>
         filters.selectedActivities.some((activity) =>
@@ -95,23 +86,18 @@ const Navbar = ({
       );
     }
 
-    // Fiyat filtreleme
     results = results.filter((tour) => tour.price <= filters.price);
 
-    // Başlangıç saati filtreleme
     results = results.filter((tour) => tour.startTime <= filters.startTime);
 
-    // Grup büyüklüğü filtreleme
     results = results.filter((tour) => tour.groupSize <= filters.groupSize);
 
-    // Araç filtreleme
     if (filters.selectedVehicle) {
       results = results.filter((tour) =>
         tour.vehicles.includes(filters.selectedVehicle)
       );
     }
 
-    // Özellikler filtreleme
     Object.entries(filters.features).forEach(([key, value]) => {
       if (value) {
         results = results.filter((tour) => tour.features.includes(key));
@@ -119,10 +105,8 @@ const Navbar = ({
     });
 
     setFilteredData(results);
-    setIsOpen(false); // Close the popup only when search is applied
+    setIsOpen(false);
   };
-
-  // Arama input'u için handler
 
   const handleInputChange = (
     key: keyof FilterState,
@@ -133,10 +117,8 @@ const Navbar = ({
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    setSelectedCategory(null); // Reset category selection when reopening
+    setSelectedCategory(null);
   };
-
-  // Reset butonu için fonksiyon
 
   const handleReset = () => {
     setFilters({
@@ -155,8 +137,6 @@ const Navbar = ({
     });
   };
 
-  // Mevcut handler'ları güncelle
-
   const handleFeatureToggle = (feature: keyof typeof filters.features) => {
     setFilters((prev) => ({
       ...prev,
@@ -164,7 +144,6 @@ const Navbar = ({
     }));
   };
 
-  // Activity multiple selection handler
   const handleActivityToggle = (activityId: string) => {
     setFilters((prev) => ({
       ...prev,
@@ -193,8 +172,6 @@ const Navbar = ({
         <FaHeart className="text-red-500" />
 
         <FaShoppingCart className="text-gray-500" />
-
-        {/* Moved the yellow circle closer to the TOURS button */}
       </div>
 
       <button

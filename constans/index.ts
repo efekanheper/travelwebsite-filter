@@ -1,5 +1,3 @@
-// src/data/index.ts
-
 export interface Theme {
   id: string;
   name: string;
@@ -41,7 +39,6 @@ export interface Tour {
   discount?: number;
 }
 
-// Filter Options
 export const themes: Theme[] = [
   { id: "island-tour", name: "Island Tour", count: 43 },
   { id: "land-tour", name: "Land Tour", count: 43 },
@@ -69,7 +66,6 @@ export const features: Feature[] = [
   { id: "vegetarian", name: "Vegetarian food", count: 43 },
 ];
 
-// Örnek Tur Verileri
 export const tours: Tour[] = [
   {
     id: "tour-1",
@@ -193,7 +189,6 @@ export const tours: Tour[] = [
   },
 ];
 
-// Filtre Uygulanmış Turları Döndüren Fonksiyon
 export const getFilteredTours = (
   searchLocation: string = "",
   selectedTheme: string = "",
@@ -205,7 +200,6 @@ export const getFilteredTours = (
   selectedFeatures: string[] = []
 ): Tour[] => {
   return tours.filter((tour) => {
-    // Lokasyon filtreleme
     if (
       searchLocation &&
       !tour.location.toLowerCase().includes(searchLocation.toLowerCase())
@@ -213,12 +207,10 @@ export const getFilteredTours = (
       return false;
     }
 
-    // Tema filtreleme
     if (selectedTheme && !tour.themes.includes(selectedTheme)) {
       return false;
     }
 
-    // Aktivite filtreleme
     if (
       selectedActivities.length > 0 &&
       !selectedActivities.some((act) => tour.activities.includes(act))
@@ -226,27 +218,22 @@ export const getFilteredTours = (
       return false;
     }
 
-    // Fiyat filtreleme
     if (tour.price > priceRange) {
       return false;
     }
 
-    // Başlangıç saati filtreleme
     if (tour.startTime > startTimeRange) {
       return false;
     }
 
-    // Grup büyüklüğü filtreleme
     if (tour.groupSize > groupSizeRange) {
       return false;
     }
 
-    // Araç filtreleme
     if (selectedVehicle && !tour.vehicles.includes(selectedVehicle)) {
       return false;
     }
 
-    // Özellik filtreleme
     if (
       selectedFeatures.length > 0 &&
       !selectedFeatures.every((feat) => tour.features.includes(feat))

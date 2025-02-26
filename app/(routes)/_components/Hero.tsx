@@ -101,10 +101,9 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
 };
 
 const Hero = () => {
-  // Tüm turlar için indirim özelliği ekliyoruz (bazılarına indirim yok)
   const toursWithDiscount = tours.map((tour) => ({
     ...tour,
-    discount: Math.random() > 0.5 ? 30 : undefined, // Bazı turlara %30 indirim
+    discount: Math.random() > 0.5 ? 30 : undefined,
   }));
 
   return (
