@@ -26,7 +26,7 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
     <Card className="overflow-hidden rounded-xl shadow-md transition-transform hover:shadow-lg hover:scale-[1.02] relative">
       <div className="relative">
         <img
-          src={tour.image || "/api/placeholder/400/250"}
+          src={tour.image}
           alt={tour.name}
           className="w-full h-48 object-cover"
         />

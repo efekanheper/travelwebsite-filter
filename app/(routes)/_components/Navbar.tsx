@@ -184,7 +184,7 @@ const Navbar = ({
           height={40}
           className="object-contain"
         />
-        <div className="text-xl font-bold">Traveller's local market</div>
+        <div className="text-xl font-bold">Travellers local market</div>
       </div>
 
       <div className="flex items-center gap-2 ml-auto mr-4">
